@@ -9,7 +9,7 @@ namespace Ordering.Mappers
         public static OrderDto ToDto(this Order order) =>
             new(order.Id, order.UserName, order.TotalPrice ?? 0, order.FirstName!, order.LastName!,
                 order.EmailAddress!, order.AddressLine!, order.Country!, order.State!, order.ZipCode!,
-                order.CardName!,order.CardNumber, order.Expiration!, order.Cvv!, order.PaymentMethd ?? 0);
+                order.CardName!,order.CardNumber, order.Expiration!, order.Cvv!, order.PaymentMethod ?? 0);
 
         public static Order ToEntity(this CheckoutOrderCommand command)
         {
@@ -28,8 +28,25 @@ namespace Ordering.Mappers
                 CardNumber = command.CardNumber,
                 Expiration = command.Expiration,
                 Cvv = command.Cvv,
-                PaymentMethd = command.PaymentMethd,
+                PaymentMethod = command.PaymentMethod,
             };
+        }
+
+        public static void MapUpdate(this Order orderToUpdate, UpdateOrderCommand request)
+        {
+            orderToUpdate.UserName = request.UserName;
+            orderToUpdate.TotalPrice = request.TotalPrice;
+            orderToUpdate.FirstName = request.FirstName;
+            orderToUpdate.LastName = request.LastName;
+            orderToUpdate.EmailAddress = request.EmailAddress;
+            orderToUpdate.AddressLine = request.AddressLine;
+            orderToUpdate.Country = request.Country;
+            orderToUpdate.State = request.State;
+            orderToUpdate.ZipCode = request.ZipCode;
+            orderToUpdate.CardName = request.CardName;
+            orderToUpdate.Expiration = request.Expiration;
+            orderToUpdate.Cvv = request.Cvv;
+            orderToUpdate.PaymentMethod = request.PaymentMethd;
         }
     }
 }

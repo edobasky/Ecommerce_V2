@@ -2,8 +2,9 @@
 
 namespace Ordering.Commands
 {
-    public record CheckoutOrderCommand : IRequest<int>
+    public record UpdateOrderCommand : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string? UserName { get; set; }
         public decimal? TotalPrice { get; set; }
         public string? FirstName { get; set; }
@@ -18,7 +19,6 @@ namespace Ordering.Commands
         public string? CardNumber { get; set; }
         public string? Expiration { get; set; }
         public string? Cvv { get; set; }
-        public int? PaymentMethod { get; set; }
+        public int? PaymentMethd { get; set; }
     }
-      
 }
