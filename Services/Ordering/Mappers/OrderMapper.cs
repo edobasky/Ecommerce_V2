@@ -1,6 +1,7 @@
 ﻿using Ordering.Commands;
 using Ordering.DTOs;
 using Ordering.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Ordering.Mappers
 {
@@ -32,6 +33,49 @@ namespace Ordering.Mappers
             };
         }
 
+        public static CheckoutOrderCommand ToCommand(this CreateOrderDto dto)
+        {
+            return new CheckoutOrderCommand
+            {
+                UserName = dto.UserName,
+                TotalPrice = dto.TotalPrice,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                EmailAddress = dto.EmailAddress,
+                AddressLine = dto.AddressLine,
+                Country = dto.Country,
+                State = dto.State,
+                ZipCode = dto.ZipCode,
+                CardName = dto.CardName,
+                CardNumber = dto.CardNumber,
+                Expiration = dto.Expiration,
+                Cvv = dto.Cvv,
+                PaymentMethod = dto.PaymentMethod,
+            };
+        }
+
+        public static UpdateOrderCommand ToCommand(this OrderDto dto)
+        {
+            return new UpdateOrderCommand
+            {
+                Id = dto.Id,
+                UserName = dto.UserName,
+                TotalPrice = dto.TotalPrice,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                EmailAddress = dto.EmailAddress,
+                AddressLine = dto.AddressLine,
+                Country = dto.Country,
+                State = dto.State,
+                ZipCode = dto.ZipCode,
+                CardName = dto.CardName,
+                CardNumber = dto.CardNumber,
+                Expiration = dto.Expiration,
+                Cvv = dto.Cvv,
+                PaymentMethod = dto.PaymentMethod,
+            };
+        }
+
         public static void MapUpdate(this Order orderToUpdate, UpdateOrderCommand request)
         {
             orderToUpdate.UserName = request.UserName;
@@ -46,7 +90,7 @@ namespace Ordering.Mappers
             orderToUpdate.CardName = request.CardName;
             orderToUpdate.Expiration = request.Expiration;
             orderToUpdate.Cvv = request.Cvv;
-            orderToUpdate.PaymentMethod = request.PaymentMethd;
+            orderToUpdate.PaymentMethod = request.PaymentMethod;
         }
     }
 }

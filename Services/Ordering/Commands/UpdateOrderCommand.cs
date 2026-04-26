@@ -19,6 +19,6 @@ namespace Ordering.Commands
         public string? CardNumber { get; set; }
         public string? Expiration { get; set; }
         public string? Cvv { get; set; }
-        public int? PaymentMethd { get; set; }
+        public int? PaymentMethod { get; set; }
     }
 }
