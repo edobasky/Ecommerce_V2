@@ -22,7 +22,7 @@ namespace Ordering.Controllers
         }
 
         [HttpGet("{userName}",Name = "GetOrdersByUsername")]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserName([FromBody] string userName)
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserName([FromRoute] string userName)
         {
             var query = new GetOrderList(userName);
             var orders = await _mediator.Send(query);

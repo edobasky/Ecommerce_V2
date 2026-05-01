@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Ordering.Behaviour;
+using Ordering.Handlers;
 
 namespace Ordering.Extensions
 {
@@ -9,7 +10,8 @@ namespace Ordering.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            var assembly = typeof(ApplicationServices).Assembly;
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
              services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
