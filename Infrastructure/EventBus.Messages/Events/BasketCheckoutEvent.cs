@@ -3,7 +3,7 @@
     public class BasketCheckoutEvent : BaseIntegrationEvent
     {
         public string? UserName { get; set; }
-        public string? TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -15,6 +15,6 @@
         public string? CardNumber { get; set; }
         public string? Expiration { get; set; }
         public string? Cvv { get; set; }
-        public string PaymentMethod { get; set; }
+        public int? PaymentMethod { get; set; }
     }
 }
