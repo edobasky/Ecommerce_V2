@@ -10,6 +10,7 @@ namespace Ordering.Repositories
         {
         }
 
+
         public async Task<IEnumerable<Order>> GetOrdersByUserName(string userName)
         {
             var orderList = await _dbContext.Orders
@@ -18,6 +19,12 @@ namespace Ordering.Repositories
                 .ToListAsync();
 
             return orderList;
+        }
+
+        public async Task AddOutboxMessageAsync(OutboxMessage outboxMessage)
+        {
+            await _dbContext.OutboxMessages.AddAsync(outboxMessage);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

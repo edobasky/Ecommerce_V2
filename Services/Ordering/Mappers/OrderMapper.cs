@@ -1,5 +1,7 @@
 ﻿using EventBus.Messages.Events;
+using Newtonsoft.Json;
 using Ordering.Commands;
+using Ordering.Constants;
 using Ordering.DTOs;
 using Ordering.Entities;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -111,7 +113,37 @@ namespace Ordering.Mappers
                 Expiration = message.Expiration!,
                 Cvv = message.Cvv!,
                 PaymentMethod = message.PaymentMethod ?? 0,
+                CardNumber = message.CardNumber
 
+            };
+        }
+
+        public static OutboxMessage ToOutboxMessage(Order order)
+        {
+            return new OutboxMessage
+            {
+                CorrelationId = Guid.NewGuid().ToString(),
+                Type = OutboxMessageTypes.OrderCreated,
+                OccuredOn = DateTime.UtcNow,
+                Content = JsonConvert.SerializeObject(new
+                {
+                    order.Id,
+                    order.UserName,
+                    order.TotalPrice,
+                    order.FirstName,
+                    order.LastName,
+                    order.EmailAddress,
+                    order.AddressLine,
+                    order.Country,
+                    order.State,
+                    order.ZipCode,
+                    order.Cvv,
+                    order.PaymentMethod,
+                    order.Status,
+                    order.Expiration,
+                    order.CardName,
+                    order.CardNumber
+                })
             };
         }
     }
