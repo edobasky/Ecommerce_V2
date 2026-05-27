@@ -33,6 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{4B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Services\Identity\Identity.csproj", "{9FE5ED1F-B284-40C3-A303-EF83561302B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{F1CA1B18-E1B4-4ED7-9DC7-66438BA4CCBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway\ApiGateway.csproj", "{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,10 @@ Global
 		{9FE5ED1F-B284-40C3-A303-EF83561302B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE5ED1F-B284-40C3-A303-EF83561302B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FE5ED1F-B284-40C3-A303-EF83561302B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,7 @@ Global
 		{653FF7DD-5F1D-4CD7-BA61-6A2460CC1657} = {D4B5B7D0-6148-4429-9FBC-44C3AECDC187}
 		{4BFAB90B-221C-4CBE-873A-8B6224B8D56A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9FE5ED1F-B284-40C3-A303-EF83561302B0} = {4BFAB90B-221C-4CBE-873A-8B6224B8D56A}
+		{AC6FC27B-10B6-4333-B1F8-8C7CE1C238FE} = {F1CA1B18-E1B4-4ED7-9DC7-66438BA4CCBE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74EC3BEC-C947-474E-9090-9726BE4C7B04}
