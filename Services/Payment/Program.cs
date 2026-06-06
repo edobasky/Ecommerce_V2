@@ -1,8 +1,13 @@
+using Common.Logging;
 using EventBus.Messages.Common;
 using MassTransit;
 using Payment.Consumers;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Serilog config
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 
 // Add services to the container.
 

@@ -1,4 +1,5 @@
 ﻿using EventBus.Messages.Events;
+using MassTransit.Transports;
 using Newtonsoft.Json;
 using Ordering.Commands;
 using Ordering.Constants;
@@ -118,11 +119,11 @@ namespace Ordering.Mappers
             };
         }
 
-        public static OutboxMessage ToOutboxMessage(Order order)
+        public static OutboxMessage ToOutboxMessage(Order order, Guid correlationId)
         {
             return new OutboxMessage
             {
-                CorrelationId = Guid.NewGuid().ToString(),
+                CorrelationId = correlationId.ToString(),
                 Type = OutboxMessageTypes.OrderCreated,
                 OccuredOn = DateTime.UtcNow,
                 Content = JsonConvert.SerializeObject(new
@@ -143,6 +144,35 @@ namespace Ordering.Mappers
                     order.Expiration,
                     order.CardName,
                     order.CardNumber
+                })
+            };
+        }
+
+        internal static OutboxMessage ToOutboxMessageForUpdate(Order orderToUpdate, Guid correlationId)
+        {
+            return new OutboxMessage
+            {
+                CorrelationId = correlationId.ToString(),
+                Type = OutboxMessageTypes.OrderCreated,
+                OccuredOn = DateTime.UtcNow,
+                Content = JsonConvert.SerializeObject(new
+                {
+                    orderToUpdate.Id,
+                    orderToUpdate.UserName,
+                    orderToUpdate.TotalPrice,
+                    orderToUpdate.FirstName,
+                    orderToUpdate.LastName,
+                    orderToUpdate.EmailAddress,
+                    orderToUpdate.AddressLine,
+                    orderToUpdate.Country,
+                    orderToUpdate.State,
+                    orderToUpdate.ZipCode,
+                    orderToUpdate.Cvv,
+                    orderToUpdate.PaymentMethod,
+                    orderToUpdate.Status,
+                    orderToUpdate.Expiration,
+                    orderToUpdate.CardName,
+                    orderToUpdate.CardNumber
                 })
             };
         }

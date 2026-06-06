@@ -28,6 +28,9 @@ namespace Ordering.Handlers
 
             orderToUpdate.MapUpdate(request);
             await _orderRepository.UpdateAsync(orderToUpdate);
+            // optional implementation
+            var outBoxMessage = OrderMapper.ToOutboxMessageForUpdate(orderToUpdate, request.CorrelationId);
+            await _orderRepository.AddOutboxMessageAsync(outBoxMessage);
             _logger.LogInformation($"Order {orderToUpdate.Id} is successfully updated.");
             return Unit.Value;
         }

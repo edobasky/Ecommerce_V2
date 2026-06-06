@@ -2,12 +2,16 @@ using System.Reflection;
 using Catalog.Data;
 using Catalog.Handlers;
 using Catalog.Repositories;
+using Common.Logging;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Serilog config
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 //Register custom serialisers
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));

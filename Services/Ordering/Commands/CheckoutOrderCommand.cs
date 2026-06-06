@@ -19,6 +19,7 @@ namespace Ordering.Commands
         public string? Expiration { get; set; }
         public string? Cvv { get; set; }
         public int? PaymentMethod { get; set; }
+        public Guid CorrelationId { get; set; }
     }
       
 }
