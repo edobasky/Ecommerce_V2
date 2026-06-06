@@ -50,8 +50,6 @@ namespace Ordering.Dispatcher
                         
                     }
                 }
-                var hold = new List<int>();
-               var r = hold.Min();
                 await dbContext.SaveChangesAsync(stoppingToken);
                 await Task.Delay(5000, stoppingToken);
 

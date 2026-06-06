@@ -26,6 +26,7 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
+app.UseMiddleware<CorrelationIdMiddleware>();
 // Migrate the Database
 app.MigrateDatabase<Program>();
 app.UseRouting();

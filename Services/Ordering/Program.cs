@@ -54,6 +54,7 @@ builder.Services.AddMassTransit(config =>
 
 var app = builder.Build();
 
+app.UseMiddleware<CorrelationIdMiddleware>();
 app.MigrateDabase<OrderContext>((context,services) =>
 {
     var logger = services.GetService<ILogger<OrderContextSeed>>();

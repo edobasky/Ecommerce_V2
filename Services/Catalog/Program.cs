@@ -43,6 +43,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
+app.UseMiddleware<CorrelationIdMiddleware>();
 // Seed Mongo db on Startup
 
 using (var scope = app.Services.CreateScope())

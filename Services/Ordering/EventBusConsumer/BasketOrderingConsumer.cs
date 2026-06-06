@@ -20,6 +20,7 @@ namespace Ordering.EventBusConsumer
         {
             using var scope = _logger.BeginScope("Consuming Basket Checkout Event for {CorrelationId}", context.Message.CorrelationId);
             var command = context.Message.ToCheckoutOrderCommand();
+            command.CorrelationId = context.Message.CorrelationId;
             var result = await _mediator.Send(command);
             _logger.LogInformation("Basket Checkout Event completed Successfully.");
         }

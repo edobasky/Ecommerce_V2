@@ -11,12 +11,17 @@ namespace Basket.Handlers
         private readonly IMediator _mediator;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly ILogger<CheckoutBasketCommandHandler> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CheckoutBasketCommandHandler(IMediator mediator, IPublishEndpoint publishEndpoint, ILogger<CheckoutBasketCommandHandler> logger)
+        public CheckoutBasketCommandHandler(IMediator mediator,
+                                            IPublishEndpoint publishEndpoint,
+                                            ILogger<CheckoutBasketCommandHandler> logger,
+                                            IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
             _publishEndpoint = publishEndpoint;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Unit> Handle(BasketCheckoutCommand request, CancellationToken cancellationToken)
@@ -31,7 +36,15 @@ namespace Basket.Handlers
 
             // Map
             var evt = dto.ToBasketCheckoutEvent(basket);
-            _logger.LogInformation("Publishing BasketCheckoutEvent for {User}",basket.UserName);
+
+            // Try to propagate CorrelationId from HttpContext
+            var correlationIdHeader = _httpContextAccessor.HttpContext?.Request.Headers["x-correlation-id"];
+            if(!string.IsNullOrEmpty(correlationIdHeader) && Guid.TryParse(correlationIdHeader, out var correlationId) )
+            {
+                evt.CorrelationId = correlationId;
+            }
+
+            _logger.LogInformation("Publishing BasketCheckoutEvent for {User} and Id {correlationId}",basket.UserName,evt.CorrelationId);
             await _publishEndpoint.Publish(evt,cancellationToken);
 
             //delete the event

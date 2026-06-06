@@ -14,7 +14,7 @@
         //ctor with username only
         public ShoppingCartResponse(string userName) : this(userName, new List<ShoppingCartItemResponse>())
         {
-            UserName = string.Empty;
+            UserName = userName;
             Items = new List<ShoppingCartItemResponse>();
         }
         // full Ctor

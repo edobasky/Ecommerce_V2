@@ -4,7 +4,7 @@
     {
         public BaseIntegrationEvent()
         {
-            CorrelationId = Guid.NewGuid();
+           // CorrelationId = Guid.NewGuid(); will be set in the middleware
             CreationDate = DateTime.UtcNow;
         }
 
