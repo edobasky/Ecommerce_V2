@@ -58,7 +58,7 @@ app.UseMiddleware<CorrelationIdMiddleware>();
 app.MigrateDabase<OrderContext>((context,services) =>
 {
     var logger = services.GetService<ILogger<OrderContextSeed>>();
-    OrderContextSeed.SeedAsync(context,logger).Wait();
+    OrderContextSeed.SeedAsync(context,logger!).Wait();
 });
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

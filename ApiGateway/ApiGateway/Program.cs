@@ -12,7 +12,26 @@ var key = jwtSettings["Key"];
 var issuer = jwtSettings["Issuer"];
 var audience = jwtSettings["Audience"];
 
-builder.Configuration.AddJsonFile("ocelot.json",optional: false, reloadOnChange:true);
+var env = builder.Environment.EnvironmentName; // Local,Development
+
+//builder.Configuration.AddJsonFile("ocelot.json",optional: false, reloadOnChange:true);
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("ocelot.Local.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"ocelot.{env}.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+
+// Add Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod(); 
+    });
+});
 
 //Add JWT to ocelot
 builder.Services.AddAuthentication("Bearer")
@@ -29,7 +48,7 @@ builder.Services.AddAuthentication("Bearer")
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
         };
     });
-//builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddControllers();
@@ -45,6 +64,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseCors("AllowFrontend");
 //app.UseHttpsRedirection();
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseAuthentication();
